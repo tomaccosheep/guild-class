@@ -1,7 +1,7 @@
 running = True
 phonebook = {}
 while running:
-
+# ;)
 
 	try:
 		query = int(input('Enter: \n1) to add a new person to the \
