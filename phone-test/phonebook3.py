@@ -157,7 +157,7 @@ while running:
 		try:
 			for i in phonebook.items():
 				#print(i[1])
-				if str(i[1][search_category]).find(search_string):
+				if str(i[1][search_category]).find(search_string) != -1:
 					print(search_category, search_string, str(i[1][search_category]).find(search_string))
 					print(i[0], '\n', i[1][search_category])
 		except KeyError:
