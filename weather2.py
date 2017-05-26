@@ -42,9 +42,12 @@ print(r.url)
 print(json_data)
 # }}
 
+
+# Convert the temperature based on c_or_f, and then output temp and weather {{
 if c_or_f == '1':
-	temp = json_data['main']['temp'] - 273
+	temp = int(json_data['main']['temp'] - 273)
 elif c_or_f == '2':
-	temp = (json_data['main']['temp'] - 273) * 9/5 + 32
-print('Temperature equals ', temp)
+	temp = int((json_data['main']['temp'] - 273) * 9/5 + 32)
+print('Temperature equals', temp)
 print('The weather outside is', json_data['weather'][0]['description'])
+# }}

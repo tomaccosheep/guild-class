@@ -15,6 +15,5 @@ def gen_odd_num(less_than):
         if x % 2 == 1:
             yield x
 
-#print([for i in gen_odd_num(101) yield i])
 for i in gen_odd_num(101):
 	print(i)
