@@ -9,3 +9,12 @@ years = [1995, 2000, 2004, 2011]
 leap_years = [years_i for years_i in years if years_i % 4 == 0]
 print(leap_years)
 
+
+def gen_odd_num(less_than):
+    for x in range(less_than):
+        if x % 2 == 1:
+            yield x
+
+#print([for i in gen_odd_num(101) yield i])
+for i in gen_odd_num(101):
+	print(i)
