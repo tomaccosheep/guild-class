@@ -1,15 +1,28 @@
 import requests
 
-# Get parameters {
-city = input('What city would you like to know about? ')
-# }
-
 # Declare a package with URL parameters {
 package = {
     'APPID': '61b3cff64285cad2b26550ab28e58fa8',
-    'q': city,
 }
 # }
+
+
+# Get parameters {
+
+
+# Use a while loop to force a choice between city or zip code {
+city_or_zip = 'unset'
+while city_or_zip != '1' and city_or_zip != '2':
+	city_or_zip = input('1. Search by city\n2. Search by zip code ')
+# }
+
+if city_or_zip == 1:
+	city = input('What city would you like to know about? ')
+
+if city_or_zip == 2:
+	zip = input('What zip code would you like to know about? ')
+# }
+
 
 
 # Define 'r' as a URL with parameters above {
