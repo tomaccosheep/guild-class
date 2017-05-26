@@ -28,7 +28,7 @@ if city_or_zip == '2':
 # Choose the temperature type through a while loop {{
 c_or_f = 'unset'
 while c_or_f != '1' and c_or_f != '2':
-	c_or_f = input('1. Get temperature in Celcius\n2. Get temperature in Fahrenheit\n: '
+	c_or_f = input('1. Get temperature in Celcius\n2. Get temperature in Fahrenheit\n: ')
 # }}
 
 # Define 'r' as a URL with parameters from 'package' dictionary {{
@@ -37,4 +37,14 @@ r = requests.post('http://api.openweathermap.org/data/2.5/weather', params=packa
 
 json_data = r.json()
 print(r.url)
+
+# Print all json data {{
 print(json_data)
+# }}
+
+if c_or_f == '1':
+	temp = json_data['main']['temp'] - 273
+elif c_or_f == '2':
+	temp = (json_data['main']['temp'] - 273) * 9/5 + 32
+print('Temperature equals ', temp)
+print('The weather outside is', json_data['weather'][0]['description'])
