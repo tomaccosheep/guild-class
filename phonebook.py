@@ -1,3 +1,10 @@
+#to do:
+# - Partial Name
+# - Phone Number
+# - Partial Phrase
+#- Add Save and Load features for your contact data by saving a csv file.
+
+import csv
 running = True
 phonebook = {}
 while running:
@@ -7,7 +14,8 @@ while running:
 		query = int(input('Enter: \n1) to add a new person to the \
 phonebook\n2) to look up someone\'s information\n3) to modify someone\'s \
 information\n4) to delete a person\n5) to look up a \
-specific piece of information\n6) to quit\n: '))
+specific piece of information\n6) import a csv file\n7) to view full phonebook\n8) quit\n\
+9) look at tuples: '))
 
 	except ValueError:
 		print('Input must be a number. Please try again.')
@@ -37,8 +45,11 @@ specific piece of information\n6) to quit\n: '))
 		if name_info_del == '1': 
 			change_name_new = input('What is the corrected name? ')
 			print(change_name + ' ' + change_name_new)
-			phonebook[change_name_new] = phonebook[change_name]
-			del phonebook[change_name]
+			try:
+				phonebook[change_name_new] = phonebook[change_name]
+				del phonebook[change_name]
+			except KeyError:
+				continue
 			#change the name by getting a new name, copying information,
 			#and deleting name
 		elif name_info_del == '2': 
@@ -63,13 +74,43 @@ should that value be? ')
 		else:
 			print('That wasn\'t 1, 2, or 3!')
 	elif query == 4:
-		del_name = input('Which user would you like to delete? ')
-		del phonebook[del_name]
+		try:
+			del_name = input('Which user would you like to delete? ')
+			del phonebook[del_name]
+		except KeyError:
+			continue
 	elif query == 5:
 		lookup_name = input('Who would you like to look up info about? ')
 		lookup_key = input('What would you like to look up about them? ')
-		print(phonebook[lookup_name][lookup_key])
+		try:
+			print(phonebook[lookup_name][lookup_key])
+		except KeyError:
+			continue
 	elif query == 6:
+		input_file = input('What is the name of the file you\'d like to input? ')
+		try:
+			with open(input_file, mode='r') as infile:
+				reader = csv.DictReader(infile)
+				for rows in reader:
+					phonebook[rows['Name']] = { 'number' : rows['Phone 1 - Value'], 'phrase' : rows['E-mail 1 - Value'] }	
+#with open('coors.csv', mode='r') as infile:
+#    reader = csv.reader(infile)
+#    with open('coors_new.csv', mode='w') as outfile:
+#        writer = csv.writer(outfile)
+#        mydict = {rows[0]:rows[1] for rows in reader}
+		except KeyError:
+			continue
+	elif query == 7:
+		print(phonebook)
+	elif query == 8:
 		quit()
+	elif query == 9:
+		searchkey = input('Which part would you like to search? ')
+		searchstring = input('What string would you like to search for? ')
+		for i in phonebook.items():
+			print(i)
+			phonei = i[1][searchkey] 
+			if str(i[1][searchkey]).find(searchstring):
+				print(i + '\n' + i[1][searchkey])
 	else:
 		print('I did not understand that.')
