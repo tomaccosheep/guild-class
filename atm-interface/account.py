@@ -1,8 +1,6 @@
 #An account will be a class named Account in a module named account: it will have private attributes for the balance and interest rate. Remember to underscore _ prefix any private attributes. A newly-instantiated account will have zero balance and an interest rate of 0.1%.
 #Write class methods in the account class that:
 #
-#withdraw(amount) Withdraw an allowed amount; raise a ValueError if insufficent balance
-#calc_interest() Calculate and return interest on the current account balance
 #I've already written out some test code that will check that your Account class behaves as expected. Save it as account_test.py in your solution directory. These tests should all pass for your Account implementation. Either run py.test from the atm-interface directory, or setup a PyCharm test Run Configuration.
 #
 #You should still write doctests for your functions that test internal implementation. E.g. Check that internal variables are set correctly. My classes can't do that since internal variables are not part of the defined behavior.
@@ -27,15 +25,12 @@ class Account(object):
 	def withdraw(self, amount):
 		if self._balance >= amount:
 			self._balance -= amount
-			return 'Your balance is {}.'.format(self._balance)
+			return print('Your balance is {}.'.format(self._balance))
 		else:
+			print('You don\'t have that much money')
 			return ValueError
 	def calc_interest(self, days):
-		print(days)
-		print(self._balance)
-		print(self._balance / days)
 		_out = self._balance * ( (1 + 1 / ( days * 100 ) ) ** days )
-		
 		return print(_out)
 
 
