@@ -59,29 +59,45 @@ class Account(object):
 			return print(False), False
 	# }}
 
-
+	# Withdraw money, and pay $5 fee if under $1000 {{
 	def withdraw(self, amount):
 		if self.get_standing():
 			if self._balance > 5 + amount:
 				self._balance -= 5 + amount
 				self._bank_fees += 5
+				return print('Your balance is {}.'.format(self._balance))
 			else:
-				return print(False), False
-		if self._balance >= amount:
+				return print('You don\'t have enough money.')
+		elif self._balance >= amount:
 			self._balance -= amount
 			return print('Your balance is {}.'.format(self._balance))
 		else:
 			print('You don\'t have that much money')
 			return ValueError
+	# }}
+
+
 	def calc_interest(self, days):
 		_out = self._balance * ( (1 + 1 / ( days * 1000 ) ) ** days )
 		return print(_out)
 
 
 	# Transfer from another account to this one, if
-	# They have enough money {{
+	# They have enough money. It calls on transto to do every
+	# transfer.
+	# {{
 	def transfrom(self, other_acc, trans_num):
-		if self.getstanding():
+		if self.get_standing() and self._balance + trans_num > 5:
+			try:
+				other_acc.transto(self, trans_num)
+				return
+			except:
+				print('Transfer failed.')
+				return
+		elif self.get_standing():
+			return print('You don\'t have enough money to do that')
+		else:
+			other_acc.transto(self, trans_num)
 			return
 	# }}
 
@@ -89,7 +105,20 @@ class Account(object):
 	# Transfer from this account to another, if
 	# this account has enough money {{
 	def transto(self, other_acc, trans_num):
-		return
+		if self.get_standing() and self._balance < trans_num + 5:
+			return print('You don\'t have enough money.')	
+		elif self._balance < trans_num:
+			return print('You don\'t have enough money.')	
+		elif self.get_standing():
+			self._balance -= 5
+			self._bank_fees += 5
+			self._balance -= trans_num
+			other_acc.deposit(trans_num)
+			return
+		else:
+			self._balance -= trans_num
+			other_acc.deposit(trans_num)
+			return
 	# }}
 	
 
@@ -109,5 +138,4 @@ class Account(object):
 	def export_ID(self):
 		return self._ID
 	# }}
-
 
