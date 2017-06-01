@@ -118,9 +118,6 @@ class Hand(object):
 # }}
 
 
-
-
-
 #In the game module, implement top-level functions that:
 #Start a new game of Blackjack, or Quit
 #Score a hand
